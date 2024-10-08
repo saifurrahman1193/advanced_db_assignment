@@ -13,11 +13,11 @@ db.combo_offers.find({ "restaurant_id": "rest001" }).pretty();
 const order = db.orders.findOne({ "order_id": "order001" });
 
 if (order) {
-    const foodItems = order.food_items.map(item => {
+    const food_items = order.food_items.map(item => {
         return db.food_items.findOne({ "food_item_id": item.food_item_id }, { "name": 1, "price": 1 });
     });
 
-    foodItems.forEach(item => {
+    food_items.forEach(item => {
         print(`Food Item: ${item.name}, Price: ${item.price}`);
     });
 } else {
