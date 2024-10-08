@@ -1,0 +1,300 @@
+mongosh
+show collections
+show dbs
+
+use foodpanda
+
+
+db.customers.insertMany([
+  {
+    "customer_id": "cust001",
+    "name": "Saifur Rahman",
+    "address": "kathal bagan bazar",
+    "phone_number": "8801703188752",
+    "email": "saifur.rahman1193@gmail.com"
+  },
+  {
+    "customer_id": "cust002",
+    "name": "Asif Ahmed",
+    "address": "dhanmondi, dhaka",
+    "phone_number": "8801712345678",
+    "email": "asif.ahmed@gmail.com"
+  },
+  {
+    "customer_id": "cust003",
+    "name": "Robin",
+    "address": "banani, dhaka",
+    "phone_number": "8801912345678",
+    "email": "robin@gmail.com"
+  },
+  {
+    "customer_id": "cust004",
+    "name": "Mohammad Ali",
+    "address": "gulshan, dhaka",
+    "phone_number": "8801812345678",
+    "email": "mohammad.ali@gmail.com"
+  },
+  {
+    "customer_id": "cust005",
+    "name": "Rahmatullah",
+    "address": "uttara, dhaka",
+    "phone_number": "8801612345678",
+    "email": "rahmatullah@gmail.com"
+  }
+]);
+
+
+db.customers.find().pretty();
+db.customers.find({ customer_id: "cust001" });
+
+
+
+
+db.restaurants.insertMany([
+  {
+    "restaurant_id": "rest001",
+    "name": "Pizza Palace",
+    "address": "123 Main St, Dhanmondi, Dhaka",
+    "rating": 4.5
+  },
+  {
+    "restaurant_id": "rest002",
+    "name": "Burger King",
+    "address": "456 High St, Banani, Dhaka",
+    "rating": 4.2
+  },
+  {
+    "restaurant_id": "rest003",
+    "name": "Sushi World",
+    "address": "789 Park Ave, Gulshan, Dhaka",
+    "rating": 4.8
+  },
+  {
+    "restaurant_id": "rest004",
+    "name": "Taco Tower",
+    "address": "101 Tower Lane, Uttara, Dhaka",
+    "rating": 4.0
+  },
+  {
+    "restaurant_id": "rest005",
+    "name": "Curry Corner",
+    "address": "202 Spice Rd, Mirpur, Dhaka",
+    "rating": 4.6
+  }
+]);
+
+
+db.restaurants.find().pretty();
+db.restaurants.find({ restaurant_id: "rest001" });
+
+
+db.food_items.insertMany([
+  {
+    "food_item_id": "food001",
+    "name": "Margherita Pizza",
+    "price": 8.99,
+    "restaurant_id": "rest001"
+  },
+  {
+    "food_item_id": "food002",
+    "name": "Cheeseburger",
+    "price": 5.99,
+    "restaurant_id": "rest002"
+  },
+  {
+    "food_item_id": "food003",
+    "name": "California Roll",
+    "price": 10.99,
+    "restaurant_id": "rest003"
+  },
+  {
+    "food_item_id": "food004",
+    "name": "Chicken Taco",
+    "price": 3.99,
+    "restaurant_id": "rest004"
+  },
+  {
+    "food_item_id": "food005",
+    "name": "Butter Chicken",
+    "price": 12.99,
+    "restaurant_id": "rest005"
+  }
+]);
+
+
+db.food_items.find().pretty();
+db.food_items.find({ food_item_id: "food001" });
+db.food_items.find({ "restaurant_id": "rest001" }).pretty();
+
+
+
+
+db.orders.insertMany([
+  {
+    "order_id": "order001",
+    "order_date": new Date("2024-10-01T12:00:00Z"),
+    "customer_id": "cust001",
+    "food_items": [
+      { "food_item_id": "food001", "quantity": 2 },
+      { "food_item_id": "food004", "quantity": 3 }
+    ],
+    "delivery_personnel_id": "deliv001"
+  },
+  {
+    "order_id": "order002",
+    "order_date": new Date("2024-10-02T15:30:00Z"),
+    "customer_id": "cust002",
+    "food_items": [
+      { "food_item_id": "food002", "quantity": 1 },
+      { "food_item_id": "food003", "quantity": 2 }
+    ],
+    "delivery_personnel_id": "deliv002"
+  },
+  {
+    "order_id": "order003",
+    "order_date": new Date("2024-10-03T18:45:00Z"),
+    "customer_id": "cust003",
+    "food_items": [
+      { "food_item_id": "food005", "quantity": 1 }
+    ],
+    "delivery_personnel_id": "deliv001"
+  },
+  {
+    "order_id": "order004",
+    "order_date": new Date("2024-10-04T14:20:00Z"),
+    "customer_id": "cust004",
+    "food_items": [
+      { "food_item_id": "food001", "quantity": 1 },
+      { "food_item_id": "food002", "quantity": 1 },
+      { "food_item_id": "food004", "quantity": 2 }
+    ],
+    "delivery_personnel_id": "deliv003"
+  },
+  {
+    "order_id": "order005",
+    "order_date": new Date("2024-10-05T09:10:00Z"),
+    "customer_id": "cust005",
+    "food_items": [
+      { "food_item_id": "food003", "quantity": 2 }
+    ],
+    "delivery_personnel_id": "deliv002"
+  }
+]);
+
+db.orders.find().pretty();
+db.orders.find({ "customer_id": "cust001" }).pretty();
+
+
+
+
+db.delivery_personnel.insertMany([
+  {
+    "delivery_personnel_id": "deliv001",
+    "name": "Jasim",
+    "phone_number": "8801703188753"
+  },
+  {
+    "delivery_personnel_id": "deliv002",
+    "name": "Riaj Ahmed",
+    "phone_number": "8801703188754"
+  },
+  {
+    "delivery_personnel_id": "deliv003",
+    "name": "Ramzan Ali",
+    "phone_number": "8801703188755"
+  },
+  {
+    "delivery_personnel_id": "deliv004",
+    "name": "Rakib",
+    "phone_number": "8801703188756"
+  },
+  {
+    "delivery_personnel_id": "deliv005",
+    "name": "Rejaul",
+    "phone_number": "8801703188757"
+  }
+]);
+
+db.delivery_personnel.find().pretty();
+db.delivery_personnel.find({ "delivery_personnel_id": "deliv001" }).pretty();
+
+
+
+
+db.payments.insertMany([
+  {
+    "payment_id": "pay001",
+    "payment_method": "Credit Card",
+    "payment_amount": 35.97,
+    "order_id": "order001"
+  },
+  {
+    "payment_id": "pay002",
+    "payment_method": "PayPal",
+    "payment_amount": 19.99,
+    "order_id": "order002"
+  },
+  {
+    "payment_id": "pay003",
+    "payment_method": "Cash",
+    "payment_amount": 12.99,
+    "order_id": "order003"
+  },
+  {
+    "payment_id": "pay004",
+    "payment_method": "Debit Card",
+    "payment_amount": 10.99,
+    "order_id": "order004"
+  },
+  {
+    "payment_id": "pay005",
+    "payment_method": "Mobile Payment",
+    "payment_amount": 22.50,
+    "order_id": "order005"
+  }
+]);
+
+
+db.payments.find().pretty();
+db.payments.find({ "payment_id": "pay001" }).pretty();
+
+
+
+
+
+db.combo_offers.insertMany([
+  {
+    "offer_id": "offer001",
+    "discount_percentage": 20,
+    "offer_description": "20% off on all pizzas",
+    "restaurant_id": "rest001"
+  },
+  {
+    "offer_id": "offer002",
+    "discount_percentage": 15,
+    "offer_description": "15% off on burger combos",
+    "restaurant_id": "rest002"
+  },
+  {
+    "offer_id": "offer003",
+    "discount_percentage": 25,
+    "offer_description": "25% off on sushi platters",
+    "restaurant_id": "rest003"
+  },
+  {
+    "offer_id": "offer004",
+    "discount_percentage": 10,
+    "offer_description": "10% off on taco sets",
+    "restaurant_id": "rest004"
+  },
+  {
+    "offer_id": "offer005",
+    "discount_percentage": 30,
+    "offer_description": "30% off on family curry meals",
+    "restaurant_id": "rest005"
+  }
+]);
+
+
+db.combo_offers.find().pretty();
+db.combo_offers.find({ "offer_id": "offer005" }).pretty();

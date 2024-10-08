@@ -1,0 +1,25 @@
+1. A query to find all orders placed by a customer.
+
+db.orders.find({ "customer_id": "cust001" }).pretty();
+
+
+2. A query to retrieve the details of combo offers at a particular restaurant.
+
+db.combo_offers.find({ "restaurant_id": "rest001" }).pretty();
+
+
+3. A query to list the food items and prices for a specific order.
+
+const order = db.orders.findOne({ "order_id": "order001" });
+
+if (order) {
+    const foodItems = order.food_items.map(item => {
+        return db.food_items.findOne({ "food_item_id": item.food_item_id }, { "name": 1, "price": 1 });
+    });
+
+    foodItems.forEach(item => {
+        print(`Food Item: ${item.name}, Price: ${item.price}`);
+    });
+} else {
+    print("Order not found.");
+}
