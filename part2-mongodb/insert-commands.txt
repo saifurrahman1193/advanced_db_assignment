@@ -1,13 +1,13 @@
 mongosh
-show collections
 show dbs
 
 use foodpanda
+show collections
 
 
 db.customers.insertMany([
   {
-    "customer_id": "cust001",
+    "customer_id": "1",
     "name": "Saifur Rahman",
     "address": "kathal bagan bazar",
     "phone_number": "8801703188752",
@@ -28,7 +28,7 @@ db.customers.insertMany([
     "email": "robin@gmail.com"
   },
   {
-    "customer_id": "cust004",
+    "customer_id": "4",
     "name": "Mohammad Ali",
     "address": "gulshan, dhaka",
     "phone_number": "8801812345678",
@@ -45,7 +45,7 @@ db.customers.insertMany([
 
 
 db.customers.find().pretty();
-db.customers.find({ customer_id: "cust001" });
+db.customers.find({ customer_id: "1" });
 
 
 
@@ -133,7 +133,7 @@ db.orders.insertMany([
   {
     "order_id": "order001",
     "order_date": new Date("2024-10-01T12:00:00Z"),
-    "customer_id": "cust001",
+    "customer_id": "1",
     "food_items": [
       { "food_item_id": "food001", "quantity": 2 },
       { "food_item_id": "food004", "quantity": 3 }
@@ -162,7 +162,7 @@ db.orders.insertMany([
   {
     "order_id": "order004",
     "order_date": new Date("2024-10-04T14:20:00Z"),
-    "customer_id": "cust004",
+    "customer_id": "4",
     "food_items": [
       { "food_item_id": "food001", "quantity": 1 },
       { "food_item_id": "food002", "quantity": 1 },
@@ -182,7 +182,7 @@ db.orders.insertMany([
 ]);
 
 db.orders.find().pretty();
-db.orders.find({ "customer_id": "cust001" }).pretty();
+db.orders.find({ "customer_id": "1" }).pretty();
 
 
 

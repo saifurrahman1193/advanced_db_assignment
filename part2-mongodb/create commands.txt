@@ -1,0 +1,203 @@
+mongosh
+show dbs
+
+use foodpanda
+show collections
+
+db.createCollection("customers", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["customer_id", "name"],
+      properties: {
+        customer_id: {
+          bsonType: "string",
+        },
+        name: {
+          bsonType: "string",
+        },
+        address: {
+          bsonType: "string",
+        },
+        phone_number: {
+          bsonType: "string",
+        },
+        email: {
+          bsonType: "string",
+          pattern: "^.+@.+\..+$", 
+        }
+      }
+    }
+  }
+});
+
+
+
+db.createCollection("restaurants", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["restaurant_id", "name"],
+      properties: {
+        restaurant_id: {
+          bsonType: "string",
+        },
+        name: {
+          bsonType: "string",
+        },
+        address: {
+          bsonType: "string",
+        },
+        rating: {
+          bsonType: "double",
+          minimum: 0,
+          maximum: 5,
+        }
+      }
+    }
+  }
+});
+
+
+
+
+db.createCollection("food_items", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["food_item_id", "name"],
+      properties: {
+        food_item_id: {
+          bsonType: "string",
+        },
+        name: {
+          bsonType: "string",
+        },
+        price: {
+          bsonType: "double",
+          minimum: 0,
+        },
+        restaurant_id: {
+          bsonType: "string",
+        }
+      }
+    }
+  }
+});
+
+
+
+db.createCollection("orders", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["order_id", "order_date", "customer_id"],
+      properties: {
+        order_id: {
+          bsonType: "string",
+        },
+        order_date: {
+          bsonType: "date",
+        },
+        customer_id: {
+          bsonType: "string",
+        },
+        food_items: {
+          bsonType: "array",
+          items: {
+            bsonType: "object",
+            required: ["food_item_id", "quantity"],
+            properties: {
+              food_item_id: {
+                bsonType: "string",
+              },
+              quantity: {
+                bsonType: "int",
+                minimum: 1,
+              }
+            }
+          },
+        },
+        delivery_personnel_id: {
+          bsonType: "string",
+        }
+      }
+    }
+  }
+});
+
+
+
+db.createCollection("delivery_personnel", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["delivery_personnel_id", "name"],
+      properties: {
+        delivery_personnel_id: {
+          bsonType: "string",
+        },
+        name: {
+          bsonType: "string",
+        },
+        phone_number: {
+          bsonType: "string",
+          pattern: "^[0-9]{13}$",
+        }
+      }
+    }
+  }
+});
+
+
+
+db.createCollection("payments", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["payment_id", "payment_method", "payment_amount", "order_id"],
+      properties: {
+        payment_id: {
+          bsonType: "string",
+        },
+        payment_method: {
+          bsonType: "string",
+          enum: ["Credit Card", "Debit Card", "PayPal", "Cash", "Mobile Payment"],
+        },
+        payment_amount: {
+          bsonType: "double",
+          minimum: 0,
+        },
+        order_id: {
+          bsonType: "string",
+        }
+      }
+    }
+  }
+});
+
+
+db.createCollection("combo_offers", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["offer_id", "discount_percentage", "offer_description", "restaurant_id"],
+      properties: {
+        offer_id: {
+          bsonType: "string",
+        },
+        discount_percentage: {
+          bsonType: "int",
+          minimum: 1,
+          maximum: 100,
+        },
+        offer_description: {
+          bsonType: "string",
+        },
+        restaurant_id: {
+          bsonType: "string",
+        }
+      }
+    }
+  }
+});
